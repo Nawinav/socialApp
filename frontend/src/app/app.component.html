@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 mt-5">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Username <i class="fa-sharp fa-solid fa-house"></i></th>
+        </tr>
+
+
+        </thead>
+        <tbody *ngFor="let user of users">
+          <tr >
+            <td>{{user.id}}</td>
+            <td>{{user.userName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

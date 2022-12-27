@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -18,6 +19,7 @@ namespace API.Controllers
             this.context = context;
             
         }
+
         [HttpGet]
         public ActionResult<IEnumerable<AppUser>> GetUsers(){
             var users=context.Users.ToList();
