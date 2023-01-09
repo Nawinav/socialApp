@@ -1,0 +1,76 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SOCIAL-APP</a>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="account.currentUser$ | async">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Matches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Lists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Message</a>
+        </li>
+      </ul>
+      <form
+        class="d-flex float-end"
+        role="search"
+        #loginForm="ngForm"
+        (ngSubmit)="login()"
+        *ngIf="!(account.currentUser$ | async)"
+      >
+        <input
+          class="form-control me-2"
+          type="text"
+          name="username"
+          [(ngModel)]="model.username"
+          placeholder="Username"
+        />
+        <input
+          class="form-control me-2"
+          type="password"
+          name="password"
+          [(ngModel)]="model.password"
+          placeholder="Password"
+        />
+        <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+      <div class="float-end mx-5" *ngIf="account.currentUser$| async">
+        <div class="btn-group" dropdown>
+          <button
+            id="button-basic"
+            dropdownToggle
+            type="button"
+            class="dropdown-toggle"
+            aria-controls="dropdown-basic"
+          >
+            <img
+              src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+              width="40"
+              height="40"
+              class="rounded-circle"
+            />
+             <span class="caret"></span>
+          </button>
+          <ul
+            id="dropdown-basic"
+            *dropdownMenu
+            class="dropdown-menu"
+            role="menu"
+            aria-labelledby="button-basic"
+          >
+            <li role="menuitem">
+              <a class="dropdown-item" href="#">Edit profile</a>
+            </li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="logout()">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
