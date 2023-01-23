@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTO;
 using API.Entities;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,24 +15,40 @@ namespace API.Controllers
      [Authorize]
     public class UsersController:BaseApiController
     {
-        private readonly DataContext context;
-        public UsersController(DataContext context)
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        public UsersController(IUserRepository userRepository,IMapper mapper)
         {
-            this.context = context;
-            
+            _userRepository = userRepository;
+            _mapper = mapper;
+
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult<IEnumerable<AppUser>> GetUsers(){
-            var users=context.Users.ToList();
-            return users;
-       }
       
-        [HttpGet("{id}")]
-        public ActionResult<AppUser> GetUser(int id){
-            var user=context.Users.Find(id);
-            return user;    
-       }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers(){
+            var user=await _userRepository.GetMembersAsync();
+
+
+
+            return Ok(user);
+        }
+      
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<MemberDTO>> GetUser(string username){
+        //     var user= await _userRepository.GetUserByUsernameAsync(username);
+
+        //     var userToReturn = _mapper.Map<MemberDTO>(user);
+
+        //     return Ok(userToReturn);
+        // }
+
+        [HttpGet("{username}")]
+        public async Task<ActionResult<MemberDTO>> GetUser(string username)
+        {
+           
+
+            return await _userRepository.GetMemberAsync(username);
+        }
     }
 }

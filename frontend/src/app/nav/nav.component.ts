@@ -34,9 +34,6 @@ export class NavComponent {
   login() {
     this.account.login(this.model).subscribe({
       next: _=>  this.route.navigateByUrl('/members'),
-      error: (error) => {
-       this.toastr.error(error.error)
-      },
     });
   }
 
