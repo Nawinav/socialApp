@@ -10,7 +10,6 @@ namespace API.Entities
     public class AppUser
     {
         public int Id { get; set; }
-        [Required]
         public string UserName { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
@@ -23,7 +22,7 @@ namespace API.Entities
         public string LookingFor { get; set; }
         public string Interests { get; set; }
         public string City { get; set; }
-        public string Age { get; set; }
+    
         public string Country { get; set; }
         public List<Photo> Photos { get; set; } = new();
 
