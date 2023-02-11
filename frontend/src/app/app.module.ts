@@ -26,6 +26,7 @@ import { ServerErrorsComponent } from './errors/server-errors/server-errors.comp
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NotFoundComponent,
     ServerErrorsComponent,
     MemberCardComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserAnimationsModule,
