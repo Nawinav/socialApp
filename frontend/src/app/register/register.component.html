@@ -1,27 +1,104 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" >
   <h2 class="text-center text-primary">Sign up</h2>
   <hr />
-  <div class="mb-3">
+  <div class="form-group my-2">
+    <label class="control-label" style="margin-right:10px">I am a: </label>
+    <label class="radio-inline">
+      <input
+        class="mr-3"
+        type="radio"
+        value="male"
+        formControlName="gender"
+      />Male
+    </label>
+    <label class="radio-inline mx-3">
+      <input
+        class="mr-3"
+        type="radio"
+        value="female"
+        formControlName="gender"
+      />Female
+    </label>
+  </div>
+  <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'"></app-text-input>
+  <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known As'"></app-text-input>
+  <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'Date Of Birth'" [maxDate]="maxDate"></app-date-picker>
+
+  <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'"></app-text-input>
+  <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'"></app-text-input>
+
+  <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [type]="'password'"></app-text-input>
+  <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'Confirm Password'" [type]="'password'"></app-text-input>
+  <!-- <div class="mb-3">
     <input
       type="text"
       name="username"
+      [class.is-invalid]="registerForm.get('username')?.errors && (registerForm.get('username')?.touched || registerForm.get('username')?.dirty)"
       class="form-control"
-      [(ngModel)]="model.username"
+      formControlName="username"
       placeholder="Username"
     />
+    <div class="invalid-feedback">Please enter a username</div>
   </div>
   <div class="mb-3">
     <input
       type="password"
       name="password"
       class="form-control"
-      [(ngModel)]="model.password"
+      formControlName="password"
       placeholder="Password"
+      [class.is-invalid]="registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)"
     />
+    
+    <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('required') ">Please enter a password</div>
+
+    <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('minlength')">Please must be atleast 4 characters</div>
+    <div class="invalid-feedback" *ngIf="registerForm.get('password')?.hasError('maxlength')">Please must be atmost 8 characters</div>
+
   </div>
 
+  <div class="mb-3">
+    <input
+      type="password"
+      name="confirmPassword"
+      class="form-control"
+     formControlName="confirmPassword"
+      placeholder="Confirm Password"
+      [ngClass]="{
+        'is-invalid':
+          (registerForm.get('confirmPassword').errors &&
+            (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty )) ||
+          (registerForm.get('confirmPassword').touched &&
+            registerForm.hasError('mismatch'))
+      }"
+
+    />
+
+    <div
+    class="invalid-feedback"
+    *ngIf="
+    registerForm.get('confirmPassword').hasError('required') &&
+    registerForm.get('confirmPassword').touched
+  "
+  >
+    Confirm Password is required
+  </div>
+  <div
+    class="invalid-feedback"
+    *ngIf="
+    registerForm.hasError('mismatch') &&
+    registerForm.get('confirmPassword').touched
+    "
+  >
+    Passwords must match
+  </div>
+  </div> -->
+
+  <p>{{registerForm.value | json}}</p>
+  <p>{{registerForm.status | json}}</p>
+
   <div class="text-center">
-    <button type="submit" class="btn btn-success mt-2">Register</button>
+    <button type="submit" [disabled]="!registerForm.valid" class="btn btn-success mt-2">Register</button>
     <button type="button" class="btn btn-info mt-2 mx-2" (click)="cancel()">
       Cancel
     </button>
