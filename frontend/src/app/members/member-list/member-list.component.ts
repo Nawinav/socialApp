@@ -53,6 +53,7 @@ export class MemberListComponent {
       
       this.loadMembers();  
   }
+  
   pageChanged(event:any){
     
     if(this.userParams && this.userParams !==event.page){
